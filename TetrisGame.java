@@ -43,7 +43,7 @@ public class TetrisGame extends JPanel {
 
     private void startGame() {
         gameOver = false;
-        gameBoard = new Color[ROWS][COLS]; // Reset to null (empty)
+        gameBoard = new Color[ROWS][COLS];
         score = 0;
         generateNewBlock();
         timer = new Timer(500, e -> gameLoop());
@@ -56,11 +56,7 @@ public class TetrisGame extends JPanel {
             if (checkGameOver()) {
                 gameOver = true;
                 timer.stop();
-                int response = JOptionPane.showConfirmDialog(this, "Game Over! Score: " + score + "\nRestart?",
-                        "Game Over", JOptionPane.YES_NO_OPTION);
-                if (response == JOptionPane.YES_OPTION) {
-                    startGame();
-                }
+                showGameOverDialog();
             }
         }
         repaint();
@@ -68,7 +64,6 @@ public class TetrisGame extends JPanel {
 
     private void generateNewBlock() {
         int[][] shape = SHAPES[random.nextInt(SHAPES.length)];
-        // Generate a random color for the new falling block
         Color randomColor = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
         currentBlock = new Block(shape, COLS / 2 - shape[0].length / 2, 0, randomColor);
     }
@@ -117,7 +112,7 @@ public class TetrisGame extends JPanel {
     }
 
     private void lockBlock() {
-        // Lock the current block into place
+
         for (int i = 0; i < currentBlock.shape.length; i++) {
             for (int j = 0; j < currentBlock.shape[i].length; j++) {
                 if (currentBlock.shape[i][j] == 1) {
@@ -126,7 +121,6 @@ public class TetrisGame extends JPanel {
             }
         }
 
-        // Change all locked blocks to a new random color
         Color newLockedColor = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
@@ -153,7 +147,7 @@ public class TetrisGame extends JPanel {
                 for (int r = row; r > 0; r--) {
                     System.arraycopy(gameBoard[r - 1], 0, gameBoard[r], 0, COLS);
                 }
-                gameBoard[0] = new Color[COLS]; // Reset top row to null
+                gameBoard[0] = new Color[COLS];
                 score += 100;
                 row++;
             }
@@ -183,10 +177,9 @@ public class TetrisGame extends JPanel {
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
-        // Gradient background from light blue to white
         GradientPaint gradient = new GradientPaint(
-                0, 0, new Color(173, 216, 230), // Light blue at top
-                0, ROWS * BLOCK_SIZE, Color.WHITE, // White at bottom
+                0, 0, new Color(173, 216, 230),
+                0, ROWS * BLOCK_SIZE, Color.WHITE,
                 false);
         g2d.setPaint(gradient);
         g2d.fillRect(0, 0, COLS * BLOCK_SIZE, ROWS * BLOCK_SIZE);
@@ -218,6 +211,21 @@ public class TetrisGame extends JPanel {
         }
         g.setColor(new Color(0, 0, 0)); // Black for score text
         g.drawString("Score: " + score, 10, 20);
+    }
+
+    private void showGameOverDialog() {
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 16));
+        UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.BOLD, 14));
+        UIManager.put("OptionPane.background", new Color(255, 228, 196));
+        UIManager.put("Panel.background", new Color(255, 228, 196));
+
+        int response = JOptionPane.showConfirmDialog(this,
+                "Game Over! Score: " + score + "\nRestart?", "Game Over",
+                JOptionPane.YES_NO_OPTION);
+
+        if (response == JOptionPane.YES_OPTION) {
+            startGame();
+        }
     }
 
     public static void main(String[] args) {
