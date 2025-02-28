@@ -21,24 +21,20 @@ public class ClosestPairFinder2b {
         return result;
     }
 
-    // Main method to test the implementation
     public static void main(String[] args) {
-        // Test case 1
         int[] x_coords1 = { 1, 2, 3 };
         int[] y_coords1 = { 2, 3, 4 };
         int[] result1 = findClosestPair(x_coords1, y_coords1);
-        System.out.println("Closest pair indices: [" + result1[0] + ", " + result1[1] + "]"); // Output: [0, 1]
+        System.out.println("Closest pair indices: [" + result1[0] + ", " + result1[1] + "]");
 
-        // Test case 2
         int[] x_coords2 = { 1, 1, 2, 2 };
         int[] y_coords2 = { 1, 2, 1, 2 };
         int[] result2 = findClosestPair(x_coords2, y_coords2);
-        System.out.println("Closest pair indices: [" + result2[0] + ", " + result2[1] + "]"); // Output: [0, 2]
+        System.out.println("Closest pair indices: [" + result2[0] + ", " + result2[1] + "]");
 
-        // Test case 3
         int[] x_coords3 = { 0, 10, 100 };
         int[] y_coords3 = { 0, 10, 100 };
         int[] result3 = findClosestPair(x_coords3, y_coords3);
-        System.out.println("Closest pair indices: [" + result3[0] + ", " + result3[1] + "]"); // Output: [0, 1]
+        System.out.println("Closest pair indices: [" + result3[0] + ", " + result3[1] + "]");
     }
 }

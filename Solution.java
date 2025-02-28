@@ -6,7 +6,6 @@ public class Solution {
                 x_coords.length != y_coords.length) {
             return new int[] { -1, -1 };
         }
-
         int n = x_coords.length;
         int minDistance = Integer.MAX_VALUE;
         int[] result = new int[2];
@@ -29,18 +28,14 @@ public class Solution {
                 }
             }
         }
-
         return result;
     }
 
     public static void main(String[] args) {
-        // Test case
         int[] x_coords = { 1, 2, 3, 2, 4 };
         int[] y_coords = { 2, 3, 1, 2, 3 };
-
         int[] result = closestPair(x_coords, y_coords);
         System.out.println("Closest pair indices: [" + result[0] + ", " + result[1] + "]");
-
         int distance = Math.abs(x_coords[result[0]] - x_coords[result[1]]) +
                 Math.abs(y_coords[result[0]] - y_coords[result[1]]);
         System.out.println("Minimum distance: " + distance);
