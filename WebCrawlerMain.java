@@ -117,7 +117,7 @@ public class WebCrawlerMain {
     public static void main(String[] args) {
         WebCrawler crawler = new WebCrawler(4, 100);
         List<String> initialUrls = new ArrayList<>();
-        initialUrls.add("http://example.com");
+        initialUrls.add("https://quotes.toscrape.com");
         initialUrls.add("http://example.com/page1");
         System.out.println("Starting web crawl...");
         crawler.startCrawling(initialUrls);
